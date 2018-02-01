@@ -9,28 +9,22 @@
 import Foundation
 import UIKit
 
-class <%= @project %>AppDependencies: NSObject
-{
+struct <%= @project %>AppDependencies {
 
-    class func initWithWindow(_ window: UIWindow) -> <%= @project %>AppDependencies
-    {
+    var window: UIWindow?
 
-        let obj = <%= @project %>AppDependencies()
-        obj.configureDependencies(window)
+    func installRootViewController() {
+        // *** present first coordinator here
 
-        return obj
+        self.window!.makeKeyAndVisible()
     }
 
-    func installRootViewController()
-    {
-        // *** present first wireframe here
-    }
-
-    func configureDependencies(_ window: UIWindow)
-    {
+    func configureDependencies(_ window: UIWindow) {
         // -----
         // root classes
-        let rootWireframe = RootWireframe.init(window: window)
+        self.window = window
+        self.window?.rootViewController = viewController()
+
         // *** add datastore
 
         // *** module initialization

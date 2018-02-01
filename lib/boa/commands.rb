@@ -12,28 +12,16 @@ module Boa
 
     # ----
     # initialize VIPER hierarchy
-    BASE_FILES_OBJC = {
-      'AppDelegate.h'     => 'Classes',
-      'AppDelegate.m'     => 'Classes',
-      'AppDependencies.h' => 'Classes',
-      'AppDependencies.m' => 'Classes'
-    }
-
     BASE_FILES_SWIFT = {
       'AppDelegate.swift'     => 'Classes',
       'AppDependencies.swift' => 'Classes'
     }
 
-    PROJECT_FILES_OBJC = {
-      'RootWireframe.h'   => 'Classes/Common/Wireframe',
-      'RootWireframe.m'   => 'Classes/Common/Wireframe'
-    }
-
     PROJECT_FILES_SWIFT = {
-      'RootWireframe.swift' => 'Classes/Common/Wireframe'
+      'AppCoordinator.swift' => 'Classes/Common/Coordinator'
     }
 
-    desc 'init', 'initializes VIPER project'
+    desc 'init', 'initializes RCMVVM project'
     def init
       config = invoke(:configure, [])
 
@@ -46,7 +34,7 @@ module Boa
       empty_directory 'Classes/Common/Model'
       empty_directory 'Classes/Common/Store'
       empty_directory 'Classes/Common/Utils'
-      empty_directory 'Classes/Common/Wireframe'
+      empty_directory 'Classes/Common/Coordinator'
 
       # Classes/Modules
       empty_directory 'Classes/Modules'
@@ -59,7 +47,6 @@ module Boa
 
       # Generate files
       base_files = case lang
-                   when 'objc'  then BASE_FILES_OBJC
                    when 'swift' then BASE_FILES_SWIFT
                    end
       base_files.each do |file_name, folder|
@@ -67,7 +54,6 @@ module Boa
       end
 
       project_files = case lang
-                      when 'objc'  then PROJECT_FILES_OBJC
                       when 'swift' then PROJECT_FILES_SWIFT
                       end
       project_files.each do |file_name, folder|
@@ -84,7 +70,7 @@ module Boa
       config = File.exists?(CONFIG_FILE) ? YAML.load_file(CONFIG_FILE) : {}
 
       project      = ask("Project name [#{config[:project]}] ?")
-      language     = ask("Project language [#{config[:language]}] ?", :limited_to => ["objc", "swift", ""])
+      language     = ask("Project language [#{config[:language]}] ?", :limited_to => ["swift", ""])
       class_prefix = ask("Class prefix [#{config[:class_prefix]}] ?")
       author       = ask("Author [#{config[:author]}] ?")
 

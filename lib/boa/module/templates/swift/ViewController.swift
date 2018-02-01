@@ -7,25 +7,31 @@
 //
 
 import UIKit
+import Architecture
 
-class <%= @prefixed_module %>ViewController: UIViewController, <%= @prefixed_module %>ViewInterface
-{
-    var eventHandler: <%= @prefixed_module %>ModuleInterface?
+protocol <%= @prefixed_module %>ViewControllerDelegate: class {}
+
+class <%= @prefixed_module %>ViewController: UIViewController, ViewModelable {
+    
+    let viewModel: <%= @prefixed_module %>ViewModel
+    weak var delegate: <%= @prefixed_module %>ViewControllerDelegate?
+
+    required init(viewModel: <%= @prefixed_module %>ViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
 
     // MARK: - View lifecycle
 
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         super.viewDidLoad()
     }
 
-    override func viewWillAppear(_ animated: Bool)
-    {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
 
-    override func viewDidAppear(_ animated: Bool)
-    {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
 

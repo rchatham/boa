@@ -6,22 +6,10 @@ module Boa
 
     BASE_PATH = 'Classes/Modules'
 
-    FILES_OBJC = {
-      'DataManager.h'     => 'DataManager',
-      'DataManager.m'     => 'DataManager',
-      'Interactor.h'      => 'Interactor',
-      'Interactor.m'      => 'Interactor',
-      'ModuleInterface.h' => 'ModuleInterface',
-      'Presenter.h'       => 'Presenter',
-      'Presenter.m'       => 'Presenter',
-      'ViewInterface.h'   => 'View',
-      'ViewController.h'  => 'View',
-      'ViewController.m'  => 'View',
-      'Wireframe.h'       => 'Wireframe',
-      'Wireframe.m'       => 'Wireframe'
-    }
-
     FILES_SWIFT = {
+      'Coordinator.swift'     => 'Coordinator',
+      'ViewModel.swift'       => 'ViewModel',
+      'Router.swift'          => 'Router',
       'DataManager.swift'     => 'DataManager',
       'Interactor.swift'      => 'Interactor',
       'ModuleInterface.swift' => 'ModuleInterface',
@@ -54,7 +42,6 @@ module Boa
 
       # copying template files
       files = case lang
-              when 'objc'  then FILES_OBJC
               when 'swift' then FILES_SWIFT
               end
       files.each do |file_name, folder|
@@ -64,7 +51,6 @@ module Boa
       # rendering dependencies head
       path = Dir::Tmpname.create('dep') { |path| path }
       case lang
-      when 'objc'  then template('templates/objc/DependenciesHead.m', path)
       when 'swift' then template('templates/swift/DependenciesHead.swift', path)
       end
 
@@ -74,7 +60,6 @@ module Boa
       # rendering dependencies body
       path = Dir::Tmpname.create('dep') { |path| path }
       case lang
-      when 'objc'  then template('templates/objc/DependenciesBody.m', path)
       when 'swift' then template('templates/swift/DependenciesBody.swift', path)
       end
 
