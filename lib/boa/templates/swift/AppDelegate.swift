@@ -8,16 +8,18 @@
 
 import UIKit
 import PluggableApplicationDelegate
+import Architecture
 
 @UIApplicationMain
-class <%= @project %>AppDelegate: NSObject, PluggableApplicationDelegate {
+class <%= @project %>AppDelegate: NSObject, PluggableApplicationDelegate, AppCoordinatorType {
 
-    var dependencies: <%= @project %>AppDependencies?
+	static let shared: <%= @project %>AppDelegate = UIApplication.shared.delegate as! <%= @project %>AppDelegate
 
-    let coordinator = AppCoordinator.shared
+    let dependencies = <%= @project %>AppDependencies()
+
+    let coordinator = <%= @project %>AppCoordinator.shared
 
     var services: [ApplicationService] {
         return []
     }
-
 }

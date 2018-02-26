@@ -6,7 +6,7 @@ module Boa
     include Thor::Actions
 
     # ----
-    # register additional moduls
+    # register additional modules
     register(Boa::Module, 'module', 'module [COMMAND]', 'Managing modules.')
     Boa::Commands.source_root(File.dirname(__FILE__))
 
@@ -30,9 +30,9 @@ module Boa
 
       # Classes/Common
       empty_directory 'Classes/Common'
-      empty_directory 'Classes/Common/Categories'
+      # empty_directory 'Classes/Common/Categories'
       empty_directory 'Classes/Common/Model'
-      empty_directory 'Classes/Common/Store'
+      empty_directory 'Classes/Common/Service'
       empty_directory 'Classes/Common/Utils'
       empty_directory 'Classes/Common/Coordinator'
 
@@ -75,7 +75,7 @@ module Boa
       author       = ask("Author [#{config[:author]}] ?")
 
       config[:project]      = project.empty?      ? config[:project] || ''      : project
-      config[:language]     = language.empty?     ? config[:language] || 'objc' : language
+      config[:language]     = language.empty?     ? config[:language] || 'swift' : language
       config[:class_prefix] = class_prefix.empty? ? config[:class_prefix] || '' : class_prefix
       config[:author]       = author.empty?       ? config[:author] || ''       : author
 

@@ -1,5 +1,5 @@
 //
-//  AppCoordinator.swift
+//  <%= @project %>AppCoordinator.swift
 //  <%= @project %>
 //
 //  Created by <%= @author %> on <%= @date %>.
@@ -10,9 +10,9 @@ import UIKit
 import PluggableApplicationDelegate
 import Architecture
 
-class AppCoordinator: NSObject, ApplicationService, AppCoordinatorType {
+class <%= @project %>AppCoordinator: NSObject, ApplicationService, AppCoordinatorType {
 
-	static let shared = AppCoordinator.generator()(AppDependencies(), nil)
+	static let shared = <%= @project %>AppCoordinator.generator()(<%= @project %>AppDelegate.shared.dependencies, nil)
 
 	var window: UIWindow?
 
@@ -20,13 +20,12 @@ class AppCoordinator: NSObject, ApplicationService, AppCoordinatorType {
 
         // initialize window
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.backgroundColor = UIColor.white
 
         // initialize dependencies
-        self?.dependencies.configureDependencies(self.window!)
+        self.dependencies?.configureDependencies(self.window!)
 
         // adding RootViewController
-        self?.dependencies.installRootViewController()
+        self.dependencies?.installRootViewController(self.viewController())
 
         return true
     }

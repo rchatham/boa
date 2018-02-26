@@ -4,18 +4,18 @@ module Boa
   class Module < Thor
     include Thor::Actions
 
-    BASE_PATH = 'Classes/Modules'
+    BASE_PATH = 'Classes/Services'
 
     FILES_SWIFT = {
-      'Router.swift'          => 'Router',
-      'ViewModel.swift'       => 'ViewModel',
-      'ViewController.swift'  => 'View',
-      'Coordinator.swift'     => 'Coordinator'
+      # 'Router.swift'          => 'Router',
+      # 'ViewModel.swift'       => 'ViewModel',
+      # 'ViewController.swift'  => 'View',
+      # 'Coordinator.swift'     => 'Coordinator'
     }
 
     Boa::Module.source_root(File.dirname(__FILE__))
 
-    desc 'list', 'lists available VIPER modules'
+    desc 'list', 'lists available RCMVVM services'
     def list
       return unless File.exists? BASE_PATH
 
@@ -23,7 +23,7 @@ module Boa
       print_table module_names.map.with_index { |m, i| [i+1, m] }
     end
 
-    desc 'create NAME', 'adds a new VIPER module with the specified name'
+    desc 'create NAME', 'adds a new RCMVVM service module with the specified name'
     def create(module_name)
       config = invoke('boa:commands:configure', [])
 
@@ -39,13 +39,7 @@ module Boa
               when 'swift' then FILES_SWIFT
               end
       files.each do |file_name, folder|
-        template "templates/#{lang}/#{file_name}", "#{BASE_PATH}/#{@module}/#{folder}/#{@prefixed_module}#{file_name}"
-      end
-
-      # rendering dependencies head
-      path = Dir::Tmpname.create('dep') { |path| path }
-      case lang
-      when 'swift' then template('templates/swift/DependenciesHead.swift', path)
+        template "templates/#{lang}/#{file_name}", "#{BASE_PATH}/#{@service}/#{folder}/#{@prefixed_module}#{file_name}"
       end
 
       say "\nAdd these lines to the AppDependencies imports:\n\n", :green
